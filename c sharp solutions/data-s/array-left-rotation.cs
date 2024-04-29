@@ -24,26 +24,41 @@ class Result
      *  2. INTEGER_ARRAY arr
      */
 
+
+
+    //first solution 
+    // public static List<int> rotateLeft(int d, List<int> arr)
+    // {
+    //     List<int> result = new List<int>();
+    //     for (int i = 0; i < d; i++)
+    //     {
+    //         for (int j = 0; j < arr.Count - 1; j++)
+    //         {
+    //             Swap<int>(arr, j, j + 1);
+    //         }
+    //     }
+    //     return arr;
+    // }
+    // private static void Swap<T>(IList<T> list, int indexA, int indexB)
+    // {
+    //     T tmp = list[indexA];
+    //     list[indexA] = list[indexB];
+    //     list[indexB] = tmp;
+
+    // }
     public static List<int> rotateLeft(int d, List<int> arr)
     {
         List<int> result = new List<int>();
+        for (int i = d; i < arr.Count; i++)
+        {
+            result.Add(arr[i]);
+        }
         for (int i = 0; i < d; i++)
         {
-            for (int j = 0; j < arr.Count - 1; j++)
-            {
-                Swap<int>(arr, j, j + 1);
-            }
+            result.Add(arr[i]);
         }
-        return arr;
+        return result;
     }
-    private static void Swap<T>(IList<T> list, int indexA, int indexB)
-    {
-        T tmp = list[indexA];
-        list[indexA] = list[indexB];
-        list[indexB] = tmp;
-
-    }
-
 }
 
 class Solution
