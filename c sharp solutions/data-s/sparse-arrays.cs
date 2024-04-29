@@ -43,7 +43,7 @@ class Result
     // optimize with dict 
     public static List<int> matchingStrings(List<string> stringList, List<string> queries)
     {
-        List<int> result = new List<int>(new int[queries.Count]);
+        List<int> result = new List<int>();
         Dictionary<string, int> dict = new Dictionary<string, int>();
 
 
