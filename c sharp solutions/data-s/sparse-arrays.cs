@@ -24,17 +24,51 @@ class Result
      *  2. STRING_ARRAY queries
      */
 
+    // first one 
+    // public static List<int> matchingStrings(List<string> stringList, List<string> queries)
+    // {
+    //     List<int> result = new List<int>(new int[queries.Count]);
+    //     for (int i = 0; i < queries.Count; i++)
+    //     {
+    //         for (int j = 0; j < stringList.Count; j++)
+    //         {
+    //             if (stringList[j] == queries[i])
+    //             {
+    //                 result[i]++;
+    //             }
+    //         }
+    //     }
+    //     return result;
+    // }
+    // optimize with dict 
     public static List<int> matchingStrings(List<string> stringList, List<string> queries)
     {
         List<int> result = new List<int>(new int[queries.Count]);
+        Dictionary<string, int> dict = new Dictionary<string, int>();
+
+
+        for (int i = 0; i < stringList.Count; i++)
+        {
+            if (!dict.ContainsKey(stringList[i]))
+            {
+                dict.Add(stringList[i], 1);
+            }
+            else
+            {
+                dict[stringList[i]]++;
+            }
+        }
+
+
         for (int i = 0; i < queries.Count; i++)
         {
-            for (int j = 0; j < stringList.Count; j++)
+            if (!dict.ContainsKey(queries[i]))
             {
-                if (stringList[j] == queries[i])
-                {
-                    result[i]++;
-                }
+                result.Add(0);
+            }
+            else
+            {
+                result.Add(dict[queries[i]]);
             }
         }
         return result;
