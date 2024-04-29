@@ -16,28 +16,28 @@ class Result
 {
 
     /*
-     * Complete the 'birthdayCakeCandles' function below.
+     * Complete the 'timeConversion' function below.
      *
-     * The function is expected to return an INTEGER.
-     * The function accepts INTEGER_ARRAY candles as parameter.
+     * The function is expected to return a STRING.
+     * The function accepts STRING s as parameter.
      */
 
-    public static int birthdayCakeCandles(List<int> candles)
+    public static string timeConversion(string s)
     {
-        // get the max value 
-        int count_max = 0;
-        //assuming
-        int max_value = candles[0];
-        foreach (int candle_hight in candles)
+        string[] subStrings = s.Split(':');
+        string suffix = subStrings[2].Substring(subStrings[2].Length - 2);
+        int hours = Convert.ToInt32(subStrings[0].Substring(0, 2));
+
+        if (suffix == "AM" && hours == 12)
         {
-            if (candle_hight > max_value)
-            {
-                count_max = 0;
-                max_value = candle_hight;
-            }
-            if (candle_hight == max_value) count_max++;
+            hours = 0;
         }
-        return count_max;
+        else if (suffix == "PM" && hours != 12)
+        {
+            hours += 12;
+        }
+
+        return $"{hours:D2}:{subStrings[1]}:{subStrings[2].Substring(0, 2)}";
     }
 
 }
@@ -48,11 +48,9 @@ class Solution
     {
         TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-        int candlesCount = Convert.ToInt32(Console.ReadLine().Trim());
+        string s = Console.ReadLine();
 
-        List<int> candles = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(candlesTemp => Convert.ToInt32(candlesTemp)).ToList();
-
-        int result = Result.birthdayCakeCandles(candles);
+        string result = Result.timeConversion(s);
 
         textWriter.WriteLine(result);
 
