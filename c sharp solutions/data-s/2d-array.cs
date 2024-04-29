@@ -26,7 +26,7 @@ class Result
     {
         // we will goes from the second to the before last one 
         // and we will goes from the second col to the before last one 
-        int max_sum = 0;
+        int max_sum = int.MinValue;
         for (int row_index = 1; row_index < arr.Count - 1; row_index++)
         {
             for (int col_index = 1; col_index < arr[row_index].Count - 1; col_index++)
