@@ -51,57 +51,32 @@ public class Solution {
             }
         }
     }
-
-    // Complete the mergeLists function below.
-
-    /*
-     * For your reference:
-     *
-     * SinglyLinkedListNode {
-     *     int data;
-     *     SinglyLinkedListNode next;
-     * }
-     *
-     */
-    static SinglyLinkedListNode mergeLists(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
-    // Check for edge cases
-    if (head1 == null) return head2;
-    if (head2 == null) return head1;
-
-    // Select the initial node for the merged list
-    SinglyLinkedListNode result;
-    if (head1.data < head2.data) {
-        result = head1;
-        head1 = head1.next;
-    } else {
-        result = head2;
-        head2 = head2.next;
-    }
-
-    // Pointer to traverse the merged list
-    SinglyLinkedListNode current = result;
-
-    // Merge the lists
-    while (head1 != null && head2 != null) {
-        if (head1.data < head2.data) {
-            current.next = head1;
-            head1 = head1.next;
-        } else {
-            current.next = head2;
-            head2 = head2.next;
+    static int getNode(SinglyLinkedListNode llist, int positionFromTail) {
+        SinglyLinkedListNode head = llist;
+        int size = 0;
+        
+        // Calculate the size of the list
+        while (llist != null) {
+            llist = llist.next;
+            size++;
         }
-        current = current.next;
+        
+        // Calculate the position from the head
+        int positionFromHead = size - positionFromTail;
+        
+        // Reset llist to the original head
+        llist = head;
+        
+        // Traverse the list to the target position
+        for (int i = 0; i < positionFromHead - 1; i++) {
+            llist = llist.next;
+        }
+        
+        // Return the data of the target node
+        return llist.data;
     }
 
-    // Attach the remaining nodes of the non-empty list
-    if (head1 != null) {
-        current.next = head1;
-    } else {
-        current.next = head2;
-    }
 
-    return result;
-    }
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -112,33 +87,24 @@ public class Solution {
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
         for (int testsItr = 0; testsItr < tests; testsItr++) {
-            SinglyLinkedList llist1 = new SinglyLinkedList();
+            SinglyLinkedList llist = new SinglyLinkedList();
 
-            int llist1Count = scanner.nextInt();
+            int llistCount = scanner.nextInt();
             scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-            for (int i = 0; i < llist1Count; i++) {
-                int llist1Item = scanner.nextInt();
+            for (int i = 0; i < llistCount; i++) {
+                int llistItem = scanner.nextInt();
                 scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-                llist1.insertNode(llist1Item);
+                llist.insertNode(llistItem);
             }
-          
-          	SinglyLinkedList llist2 = new SinglyLinkedList();
 
-            int llist2Count = scanner.nextInt();
+            int position = scanner.nextInt();
             scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-            for (int i = 0; i < llist2Count; i++) {
-                int llist2Item = scanner.nextInt();
-                scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            int result = getNode(llist.head, position);
 
-                llist2.insertNode(llist2Item);
-            }
-
-            SinglyLinkedListNode llist3 = mergeLists(llist1.head, llist2.head);
-
-            printSinglyLinkedList(llist3, " ", bufferedWriter);
+            bufferedWriter.write(String.valueOf(result));
             bufferedWriter.newLine();
         }
 
